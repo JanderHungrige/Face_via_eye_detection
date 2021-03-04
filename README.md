@@ -8,4 +8,4 @@ The medium article can be found here: **to be published**
 
 Of course there are other ways to obtain this, but it might help someone some day. 
 
-Stay sav
+Stay save
