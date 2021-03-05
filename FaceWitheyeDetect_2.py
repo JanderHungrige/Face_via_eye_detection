@@ -113,7 +113,7 @@ Run Main
 if __name__=="__main__":
     
     imgname=['echte-freunde-teilen-mit','two girls']
-    img = cv2.imread('./core_images/' + imgname[0] +'.jpg') 
+    img = cv2.imread('./images/' + imgname[0] +'.jpg') 
     eye_detetion(img,SF,MN)
 
     save_image('friends_face', img, SF,MN)
