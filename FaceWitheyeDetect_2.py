@@ -8,7 +8,6 @@ Created on Wed Feb 24 17:09:14 2021
 
 import numpy as np
 import cv2
-import matplotlib as plt
 
 cascaderpath='./cascader/'
 SF=1.1
@@ -107,15 +106,14 @@ def eye_detetion(img,SF,MN):
             
 def save_image(name, frame, scaleFactor,minNeighbors):
     cv2.imwrite('./' + name + str(scaleFactor) + str(minNeighbors) + '.jpeg', frame) #save image
-   # plt.savefig('./' + name + str(scaleFactor) + str(minNeighbors) + '.jpg',dpi=600)
    
 """
 Run Main
 """   
 if __name__=="__main__":
     
-    imgname=['echte-freunde-teilen-mit','Webp.net-resizeimage','two girls']
-    img = cv2.imread('./' + imgname[0] +'.jpg') 
+    imgname=['echte-freunde-teilen-mit','two girls']
+    img = cv2.imread('./core_images/' + imgname[0] +'.jpg') 
     eye_detetion(img,SF,MN)
 
     save_image('friends_face', img, SF,MN)
