@@ -9,25 +9,22 @@ Created on Wed Feb 24 17:09:14 2021
 import numpy as np
 import cv2
 
-cascaderpath='./cascader/'
-SF=1.1
-MN=4
-
-"""
- Load face cascader
-"""
-cascader=['haarcascade_frontalface_alt',
-          'haarcascade_frontalface_alt2', 
-          'lbpcascade_frontalface',
-          'lbpcascade_frontalface_improved',
-          'haarcascade_eye',
-          'haarcascade_eye_tree_eyeglasses']
-face_cascade = cv2.CascadeClassifier(cascaderpath + cascader[4] + '.xml')
-print('cascader loaded  ...')
-
 """
 Define functions'
 """
+
+def Load_cascader(cascaderpath):
+    cascader=['haarcascade_frontalface_alt',
+              'haarcascade_frontalface_alt2', 
+              'lbpcascade_frontalface',
+              'lbpcascade_frontalface_improved',
+              'haarcascade_eye',
+              'haarcascade_eye_tree_eyeglasses']
+    cascade = cv2.CascadeClassifier(cascaderpath + cascader[4] + '.xml')
+    print('cascader loaded  ...')
+    return cascade
+
+
 
 def draw_rect(x,y,w,h,frame,*n,**rest):
     #face=frame[y:y+h, x:x+w]
@@ -43,8 +40,8 @@ def draw_rect(x,y,w,h,frame,*n,**rest):
 
     return frame
 
-def eye_detetion(img,SF,MN):
-        faces_detected = face_cascade.detectMultiScale(img, scaleFactor=SF, minNeighbors=MN)#, Size(50,50))
+def eye_detetion(img,SF,MN,cascade):
+        faces_detected = cascade.detectMultiScale(img, scaleFactor=SF, minNeighbors=MN)#, Size(50,50))
         if len(faces_detected) !=0:
             n=-1
            # ONE EYE              
@@ -112,12 +109,18 @@ Run Main
 """   
 if __name__=="__main__":
     
+    cascaderpath='./cascader/'
+    SF=1.1
+    MN=4
     imgname=['echte-freunde-teilen-mit','two girls']
     img = cv2.imread('./images/' + imgname[0] +'.jpg') 
-    eye_detetion(img,SF,MN)
+    
+    cascade=Load_cascader(cascaderpath)
+    eye_detetion(img,SF,MN,cascade)
 
     save_image('friends_face', img, SF,MN)
-    print('image saved')    
+    print('image saved')   
+    
     key = cv2.waitKey(0) 
     if key == 27: #Esc key
         cv2.destroyAllWindows()
